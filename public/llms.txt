@@ -11,3 +11,16 @@ The main landing page of the application. It provides a brief introduction to th
 
 ### /documentation
 This page provides detailed documentation for the REST API. It includes information about the available endpoints, request parameters, and response formats. It also provides code examples for accessing the API.
+
+## Available APIs
+
+The following API endpoints are available:
+
+### `GET /v1/employees`
+Get a paginated list of employees with optional filtering by department and position.
+
+### `GET /v1/employees/:id`
+Get detailed information for a specific employee including their skills, current projects, performance ratings, and certifications.
+
+### `GET /v1/projects`
+Get a list of all company projects with filtering options.
