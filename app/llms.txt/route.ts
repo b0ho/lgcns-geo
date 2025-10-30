@@ -1,10 +1,11 @@
-# LG CNS Geo API
+export async function GET() {
+  const content = `# LG CNS Geo API
 
 > Comprehensive REST API providing access to LG CNS company information including employee directory, project data, organizational structure, skills database, and analytics. Built with Next.js 16 for optimal performance and SEO.
 
-This API platform provides real-time access to enterprise data with bank-level security, role-based access control, and comprehensive audit logging. Authentication is required via API key in the Authorization header: `Authorization: Bearer YOUR_API_KEY`
+This API platform provides real-time access to enterprise data with bank-level security, role-based access control, and comprehensive audit logging. Authentication is required via API key in the Authorization header: \`Authorization: Bearer YOUR_API_KEY\`
 
-Base URL: `https://api.lgcns.com/v1`
+Base URL: \`https://api.lgcns.com/v1\`
 
 Rate limits: Standard tier allows 1,000 requests/hour, Enterprise tier allows 10,000 requests/hour. Custom limits available for enterprise customers.
 
@@ -35,13 +36,13 @@ Rate limits: Standard tier allows 1,000 requests/hour, Enterprise tier allows 10
 Technical implementation: Next.js 16 with React 18, TypeScript, and Tailwind CSS. Server-side rendering enabled for optimal SEO. Static site generation for fast page loads. Radix UI components for accessible interface.
 
 Example cURL request:
-```
-curl -X GET "https://api.lgcns.com/v1/employees?department=IT&limit=10" \
+\`\`\`
+curl -X GET "https://api.lgcns.com/v1/employees?department=IT&limit=10" \\
   -H "Authorization: Bearer YOUR_API_KEY"
-```
+\`\`\`
 
 Example employee response:
-```json
+\`\`\`json
 {
   "total": 245,
   "page": 1,
@@ -59,4 +60,12 @@ Example employee response:
     }
   ]
 }
-```
+\`\`\`
+`;
+
+  return new Response(content, {
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  });
+}
