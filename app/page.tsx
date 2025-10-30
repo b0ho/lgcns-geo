@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Zap, Globe, Shield, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
@@ -7,7 +7,7 @@ import FeatureCard from "@/components/FeatureCard";
 import CodeBlock from "@/components/CodeBlock";
 
 export default function Home() {
-  const quickStartCode = `curl -X GET "https://api.lgcns.com/v1/employees?department=IT&limit=10" \\
+  const quickStartCode = `curl -X GET "https://api.lgcns.com/v1/employees?department=IT&limit=10" \
   -H "Authorization: Bearer YOUR_API_KEY"`;
 
   const responseCode = `{
