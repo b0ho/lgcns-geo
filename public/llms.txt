@@ -65,6 +65,99 @@ Get a list of all company projects with filtering options.
 - Manager information
 - Technologies used
 
+### `GET /v1/departments`
+Get organizational department structure and statistics.
+
+**Query Parameters:**
+- `include_stats` (boolean, optional): Include employee count and budget statistics (default: false)
+- `parent_id` (string, optional): Filter by parent department ID for hierarchical view
+
+**Response:** Returns department information including:
+- Department ID, name, and description
+- Parent department (if applicable)
+- Department head information
+- Employee count
+- Budget allocation (if include_stats=true)
+- Sub-departments array
+
+**Example:**
+```json
+{
+  "departments": [
+    {
+      "id": "DEPT-001",
+      "name": "Information Technology",
+      "head": {"id": "E2018045", "name": "이현우"},
+      "employee_count": 245,
+      "budget": 15000000000
+    }
+  ]
+}
+```
+
+### `GET /v1/skills`
+Get comprehensive list of skills tracked across the organization.
+
+**Query Parameters:**
+- `category` (string, optional): Filter by category (programming, cloud, database, soft-skills)
+- `level` (string, optional): Minimum skill level (beginner, intermediate, advanced, expert)
+- `in_demand` (boolean, optional): Show only high-demand skills
+
+**Response:** Returns skills database including:
+- Skill ID and name
+- Category and subcategory
+- Number of employees with this skill
+- Average proficiency level
+- Related certifications
+- Market demand indicator
+
+### `GET /v1/certifications`
+Get list of professional certifications held by employees.
+
+**Query Parameters:**
+- `type` (string, optional): Filter by type (technical, management, industry-specific)
+- `provider` (string, optional): Filter by certification provider (AWS, Microsoft, Google, PMI)
+- `active_only` (boolean, optional): Show only non-expired certifications (default: true)
+
+**Response:** Returns certification information including:
+- Certification name and provider
+- Number of certified employees
+- Average validity period
+- Renewal requirements
+- Associated salary premium percentage
+
+### `POST /v1/employees/:id/feedback`
+Submit performance feedback for an employee.
+
+**Path Parameters:**
+- `id` (string, required): Employee ID
+
+**Request Body:**
+- `rating` (integer, required): Rating from 1-5
+- `category` (string, required): Feedback category (technical, communication, leadership, teamwork)
+- `comment` (string, required): Detailed feedback text (min 50 characters)
+- `quarter` (string, required): Performance quarter (format: YYYY-Q#)
+- `anonymous` (boolean, optional): Submit anonymously (default: false)
+
+**Response:** Returns confirmation with feedback ID and processing status
+
+### `GET /v1/analytics/headcount`
+Get employee headcount analytics and trends.
+
+**Query Parameters:**
+- `period` (string, optional): Time period (monthly, quarterly, yearly) (default: monthly)
+- `start_date` (string, required): Start date (format: YYYY-MM-DD)
+- `end_date` (string, required): End date (format: YYYY-MM-DD)
+- `breakdown_by` (string, optional): Breakdown dimension (department, position, location)
+
+**Response:** Returns time-series headcount data including:
+- Period timestamps
+- Total headcount per period
+- New hires and departures
+- Growth rate percentage
+- Breakdown by specified dimension
+- Turnover rate calculations
+
 ## Authentication
 
 All API requests require authentication using an API key in the Authorization header:
