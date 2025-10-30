@@ -3,118 +3,153 @@ import Footer from "@/components/Footer";
 import ApiEndpointCard from "@/components/ApiEndpointCard";
 
 export default function Documentation() {
-  const currentWeatherParams = [
+  const employeesParams = [
     {
-      name: "city",
-      type: "string",
-      required: true,
-      description: "City name (e.g., Seoul, Tokyo, New York)"
-    },
-    {
-      name: "country",
+      name: "department",
       type: "string",
       required: false,
-      description: "Two-letter country code (e.g., KR, JP, US)"
+      description: "Filter by department (e.g., IT, HR, Finance, Marketing)"
     },
     {
-      name: "units",
+      name: "position",
       type: "string",
       required: false,
-      description: "Temperature units: 'metric' (Celsius) or 'imperial' (Fahrenheit). Default: metric"
-    }
-  ];
-
-  const currentWeatherResponse = `{
-  "city": "Seoul",
-  "country": "KR",
-  "latitude": 37.5665,
-  "longitude": 126.9780,
-  "temperature": 15.5,
-  "feels_like": 14.2,
-  "condition": "Partly Cloudy",
-  "humidity": 65,
-  "pressure": 1013,
-  "wind_speed": 12.5,
-  "wind_direction": "NW",
-  "visibility": 10,
-  "uv_index": 3,
-  "timestamp": "2025-10-30T14:30:00Z"
-}`;
-
-  const forecastParams = [
-    {
-      name: "city",
-      type: "string",
-      required: true,
-      description: "City name for weather forecast"
+      description: "Filter by position level (e.g., Junior, Senior, Manager, Director)"
     },
     {
-      name: "days",
+      name: "page",
       type: "integer",
       required: false,
-      description: "Number of forecast days (1-7). Default: 3"
+      description: "Page number for pagination. Default: 1"
     },
     {
-      name: "units",
-      type: "string",
+      name: "limit",
+      type: "integer",
       required: false,
-      description: "Temperature units: 'metric' or 'imperial'. Default: metric"
+      description: "Number of results per page (max 100). Default: 20"
     }
   ];
 
-  const forecastResponse = `{
-  "city": "Seoul",
-  "country": "KR",
-  "forecast": [
+  const employeesResponse = `{
+  "total": 245,
+  "page": 1,
+  "limit": 20,
+  "employees": [
     {
-      "date": "2025-10-30",
-      "temp_max": 18,
-      "temp_min": 12,
-      "condition": "Partly Cloudy",
-      "precipitation_chance": 20,
-      "humidity": 65
+      "id": "E2024001",
+      "name": "김철수",
+      "department": "IT",
+      "position": "Senior Developer",
+      "email": "chulsoo.kim@lgcns.com",
+      "phone": "+82-10-1234-5678",
+      "hire_date": "2020-03-15",
+      "location": "Seoul HQ"
     },
     {
-      "date": "2025-10-31",
-      "temp_max": 20,
-      "temp_min": 14,
-      "condition": "Sunny",
-      "precipitation_chance": 5,
-      "humidity": 55
+      "id": "E2024002",
+      "name": "박영희",
+      "department": "IT",
+      "position": "DevOps Engineer",
+      "email": "younghee.park@lgcns.com",
+      "phone": "+82-10-2345-6789",
+      "hire_date": "2021-07-20",
+      "location": "Seoul HQ"
     }
   ]
 }`;
 
-  const coordinatesParams = [
+  const projectsParams = [
     {
-      name: "lat",
-      type: "float",
-      required: true,
-      description: "Latitude coordinate (-90 to 90)"
-    },
-    {
-      name: "lon",
-      type: "float",
-      required: true,
-      description: "Longitude coordinate (-180 to 180)"
-    },
-    {
-      name: "units",
+      name: "status",
       type: "string",
       required: false,
-      description: "Temperature units: 'metric' or 'imperial'. Default: metric"
+      description: "Filter by project status: 'active', 'completed', 'on-hold'. Default: all"
+    },
+    {
+      name: "client",
+      type: "string",
+      required: false,
+      description: "Filter by client company name"
+    },
+    {
+      name: "sort",
+      type: "string",
+      required: false,
+      description: "Sort by field: 'start_date', 'budget', 'name'. Default: start_date"
     }
   ];
 
-  const coordinatesResponse = `{
-  "latitude": 37.5665,
-  "longitude": 126.9780,
-  "location": "Seoul, KR",
-  "temperature": 15.5,
-  "condition": "Partly Cloudy",
-  "humidity": 65,
-  "wind_speed": 12.5,
-  "timestamp": "2025-10-30T14:30:00Z"
+  const projectsResponse = `{
+  "total": 87,
+  "projects": [
+    {
+      "id": "PRJ-2024-001",
+      "name": "Digital Transformation Platform",
+      "client": "Samsung Electronics",
+      "status": "active",
+      "start_date": "2024-01-15",
+      "end_date": "2025-06-30",
+      "budget": 5000000000,
+      "team_size": 25,
+      "manager": {
+        "id": "E2019045",
+        "name": "이현우"
+      },
+      "technologies": ["React", "Node.js", "AWS", "Kubernetes"]
+    },
+    {
+      "id": "PRJ-2024-002",
+      "name": "AI-Powered Analytics System",
+      "client": "Hyundai Motor",
+      "status": "active",
+      "start_date": "2024-03-01",
+      "end_date": "2024-12-31",
+      "budget": 3500000000,
+      "team_size": 18,
+      "manager": {
+        "id": "E2018123",
+        "name": "최지영"
+      },
+      "technologies": ["Python", "TensorFlow", "Azure", "Docker"]
+    }
+  ]
+}`;
+
+  const employeeDetailParams = [
+    {
+      name: "id",
+      type: "string",
+      required: true,
+      description: "Employee ID (format: E followed by 7 digits)"
+    }
+  ];
+
+  const employeeDetailResponse = `{
+  "id": "E2024001",
+  "name": "김철수",
+  "department": "IT",
+  "position": "Senior Developer",
+  "email": "chulsoo.kim@lgcns.com",
+  "phone": "+82-10-1234-5678",
+  "hire_date": "2020-03-15",
+  "location": "Seoul HQ",
+  "manager": {
+    "id": "E2018050",
+    "name": "정민수"
+  },
+  "skills": ["Java", "Spring Boot", "Kubernetes", "AWS"],
+  "current_projects": [
+    {
+      "id": "PRJ-2024-001",
+      "name": "Digital Transformation Platform",
+      "role": "Backend Lead"
+    }
+  ],
+  "performance_rating": 4.5,
+  "certifications": [
+    "AWS Solutions Architect",
+    "Certified Kubernetes Administrator"
+  ]
 }`;
 
   return (
@@ -128,7 +163,7 @@ export default function Documentation() {
               API Documentation
             </h1>
             <p className="text-xl text-muted-foreground" data-testid="text-docs-subtitle">
-              Complete reference for all WeatherAPI endpoints
+              Complete reference for all LG CNS API endpoints
             </p>
           </div>
 
@@ -152,7 +187,7 @@ export default function Documentation() {
             </h2>
             <div className="bg-muted/30 rounded-lg p-6 border">
               <code className="block font-mono text-sm" data-testid="text-base-url">
-                https://api.weatherapi.com/v1
+                https://api.lgcns.com/v1
               </code>
             </div>
           </div>
@@ -164,26 +199,26 @@ export default function Documentation() {
             
             <ApiEndpointCard
               method="GET"
-              endpoint="/v1/current"
-              description="Get current weather data for a specific city. Returns real-time weather information including temperature, conditions, humidity, and wind data."
-              parameters={currentWeatherParams}
-              responseExample={currentWeatherResponse}
+              endpoint="/v1/employees"
+              description="Get a paginated list of employees with optional filtering by department and position. Returns comprehensive employee information including contact details and hire date."
+              parameters={employeesParams}
+              responseExample={employeesResponse}
             />
 
             <ApiEndpointCard
               method="GET"
-              endpoint="/v1/forecast"
-              description="Get weather forecast for upcoming days. Returns daily forecast data including temperature ranges, conditions, and precipitation probability."
-              parameters={forecastParams}
-              responseExample={forecastResponse}
+              endpoint="/v1/employees/:id"
+              description="Get detailed information for a specific employee including their skills, current projects, performance ratings, and certifications."
+              parameters={employeeDetailParams}
+              responseExample={employeeDetailResponse}
             />
 
             <ApiEndpointCard
               method="GET"
-              endpoint="/v1/coordinates"
-              description="Get weather data by geographic coordinates. Useful for mobile apps and location-based services that use GPS coordinates."
-              parameters={coordinatesParams}
-              responseExample={coordinatesResponse}
+              endpoint="/v1/projects"
+              description="Get a list of all company projects with filtering options. Returns project details including client information, timeline, budget, team composition, and technology stack."
+              parameters={projectsParams}
+              responseExample={projectsResponse}
             />
           </div>
 
@@ -192,8 +227,8 @@ export default function Documentation() {
               Rate Limits
             </h3>
             <p className="text-sm text-muted-foreground">
-              Free tier: 1,000 requests per day. Pro tier: 100,000 requests per day. 
-              Rate limit headers are included in all API responses.
+              Standard tier: 1,000 requests per hour. Enterprise tier: 10,000 requests per hour. 
+              Contact your account manager for custom rate limits.
             </p>
           </div>
         </div>

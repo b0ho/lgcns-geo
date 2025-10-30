@@ -17,7 +17,7 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8">
         <Link href="/" className="flex items-center gap-2 hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2">
           <Cloud className="h-6 w-6 text-primary" data-testid="icon-logo" />
-          <span className="text-xl font-semibold" data-testid="text-brand">WeatherAPI</span>
+          <span className="text-xl font-semibold" data-testid="text-brand">LG CNS API</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">

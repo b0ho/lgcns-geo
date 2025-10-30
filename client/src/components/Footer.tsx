@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="flex flex-col gap-2">
             <div className="text-sm text-muted-foreground" data-testid="text-copyright">
-              © 2025 WeatherAPI. All rights reserved.
+              © 2025 LG CNS. All rights reserved.
             </div>
           </div>
           <div className="flex flex-wrap gap-6 text-sm">
