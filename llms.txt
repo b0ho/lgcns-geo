@@ -2,22 +2,12 @@
 
 > A web application providing a REST API for accessing LG CNS company information, including employee directory, project data, and organizational structure.
 
-This project is a demonstration of how to build a modern web application with a React frontend and a backend API. The frontend is built with React, TypeScript, and Tailwind CSS.
+This website provides access to the LG CNS Geo API.
 
-## Key Information
+## URL Information
 
-- **Frontend:** React, TypeScript, Vite, Tailwind CSS
-- **UI Components:** shadcn/ui
-- **API:** REST API providing company data.
+### /
+The main landing page of the application. It provides a brief introduction to the API and its features.
 
-## File Lists
-
-### Source Code
-- /src/App.tsx
-- /src/pages/Home.tsx
-- /src/pages/Documentation.tsx
-
-### Important Files
-- /package.json
-- /vite.config.ts
-- /tailwind.config.ts
+### /documentation
+This page provides detailed documentation for the REST API. It includes information about the available endpoints, request parameters, and response formats. It also provides code examples for accessing the API.
