@@ -1,176 +1,62 @@
 # LG CNS Geo API
 
-> A web application providing a REST API for accessing LG CNS company information, including employee directory, project data, and organizational structure.
+> Comprehensive REST API providing access to LG CNS company information including employee directory, project data, organizational structure, skills database, and analytics. Built with Next.js 16 for optimal performance and SEO.
 
-This website provides access to the LG CNS Geo API with comprehensive documentation and examples.
+This API platform provides real-time access to enterprise data with bank-level security, role-based access control, and comprehensive audit logging. Authentication is required via API key in the Authorization header: `Authorization: Bearer YOUR_API_KEY`
 
-## URL Information
+Base URL: `https://api.lgcns.com/v1`
 
-### /
-The main landing page of the application. It provides:
-- Overview of the LG CNS API platform
-- Key features: real-time updates, comprehensive data, enterprise security
-- Quick start guide with code examples
-- Links to full documentation
+Rate limits: Standard tier allows 1,000 requests/hour, Enterprise tier allows 10,000 requests/hour. Custom limits available for enterprise customers.
 
-### /documentation
-Comprehensive API documentation page including:
-- Authentication requirements (API key in Authorization header)
-- Base URL information
-- Detailed endpoint specifications
-- Request parameters and response formats
-- Code examples for each endpoint
-- Rate limit information
+**Employee Management:** Access paginated employee lists with filtering by department (IT, HR, Finance, Marketing) and position level (Junior, Senior, Manager, Director). Retrieve detailed employee profiles including skills, current projects, performance ratings, certifications, and manager information. Employee IDs follow format E followed by 7 digits (e.g., E2024001).
 
-## Available API Endpoints
+**Project Tracking:** Query company projects with filters for status (active, completed, on-hold), client name, and sorting options. Returns comprehensive project details including client information, timeline, budget, team size, manager, and technology stack.
 
-### `GET /v1/employees`
-Get a paginated list of employees with optional filtering.
+**Department Structure:** GET /v1/departments endpoint provides organizational hierarchy with optional statistics including employee count and budget allocation. Filter by parent department ID for hierarchical views. Returns department head information and sub-department arrays.
 
-**Query Parameters:**
-- `department` (string, optional): Filter by department (IT, HR, Finance, Marketing)
-- `position` (string, optional): Filter by position level (Junior, Senior, Manager, Director)
-- `page` (integer, optional): Page number for pagination (default: 1)
-- `limit` (integer, optional): Results per page, max 100 (default: 20)
+**Skills Database:** GET /v1/skills endpoint offers comprehensive skills tracking across the organization. Filter by category (programming, cloud, database, soft-skills) and proficiency level (beginner, intermediate, advanced, expert). Shows employee count per skill, average proficiency, related certifications, and market demand indicators.
 
-**Response:** Returns employee list with id, name, department, position, email, phone, hire_date, and location
+**Certifications:** GET /v1/certifications lists professional certifications held by employees. Filter by type (technical, management, industry-specific) and provider (AWS, Microsoft, Google, PMI). Shows active certifications only by default, with renewal requirements and associated salary premium data.
 
-### `GET /v1/employees/:id`
-Get detailed information for a specific employee.
+**Performance Feedback:** POST /v1/employees/:id/feedback allows submitting performance reviews with 1-5 ratings across categories (technical, communication, leadership, teamwork). Requires detailed comment (minimum 50 characters) and quarter specification (YYYY-Q# format). Supports anonymous submission option.
 
-**Path Parameters:**
-- `id` (string, required): Employee ID (format: E followed by 7 digits)
+**Analytics:** GET /v1/analytics/headcount provides time-series employee headcount data with configurable periods (monthly, quarterly, yearly). Requires start_date and end_date parameters (YYYY-MM-DD format). Returns new hires, departures, growth rates, and turnover calculations. Supports breakdown by department, position, or location.
 
-**Response:** Returns complete employee profile including:
-- Basic information (name, department, position, contact)
-- Skills array
-- Current projects with roles
-- Performance rating
-- Certifications
-- Manager information
+**Response Format:** All endpoints return JSON with consistent error handling. Employee responses include id, name, department, position, email, phone, hire_date, location. Project responses include project identification, client info, status, timeline, budget, team_size, manager, and technologies array.
 
-### `GET /v1/projects`
-Get a list of all company projects with filtering options.
+## Resources
 
-**Query Parameters:**
-- `status` (string, optional): Filter by status (active, completed, on-hold)
-- `client` (string, optional): Filter by client company name
-- `sort` (string, optional): Sort by field (start_date, budget, name)
+[Homepage](https://lgcns-geo.vercel.app/): Overview of API platform with quick start guide and code examples
+[API Documentation](https://lgcns-geo.vercel.app/documentation): Complete endpoint specifications with request parameters and response formats
+[Sitemap](https://lgcns-geo.vercel.app/sitemap.xml): All available pages for crawling
 
-**Response:** Returns project details including:
-- Project identification (id, name)
-- Client information
-- Status and timeline (start_date, end_date)
-- Budget and team_size
-- Manager information
-- Technologies used
+## Optional
 
-### `GET /v1/departments`
-Get organizational department structure and statistics.
+Technical implementation: Next.js 16 with React 18, TypeScript, and Tailwind CSS. Server-side rendering enabled for optimal SEO. Static site generation for fast page loads. Radix UI components for accessible interface.
 
-**Query Parameters:**
-- `include_stats` (boolean, optional): Include employee count and budget statistics (default: false)
-- `parent_id` (string, optional): Filter by parent department ID for hierarchical view
+Example cURL request:
+```
+curl -X GET "https://api.lgcns.com/v1/employees?department=IT&limit=10" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
 
-**Response:** Returns department information including:
-- Department ID, name, and description
-- Parent department (if applicable)
-- Department head information
-- Employee count
-- Budget allocation (if include_stats=true)
-- Sub-departments array
-
-**Example:**
+Example employee response:
 ```json
 {
-  "departments": [
+  "total": 245,
+  "page": 1,
+  "limit": 10,
+  "employees": [
     {
-      "id": "DEPT-001",
-      "name": "Information Technology",
-      "head": {"id": "E2018045", "name": "이현우"},
-      "employee_count": 245,
-      "budget": 15000000000
+      "id": "E2024001",
+      "name": "김철수",
+      "department": "IT",
+      "position": "Senior Developer",
+      "email": "chulsoo.kim@lgcns.com",
+      "phone": "+82-10-1234-5678",
+      "hire_date": "2020-03-15",
+      "location": "Seoul HQ"
     }
   ]
 }
 ```
-
-### `GET /v1/skills`
-Get comprehensive list of skills tracked across the organization.
-
-**Query Parameters:**
-- `category` (string, optional): Filter by category (programming, cloud, database, soft-skills)
-- `level` (string, optional): Minimum skill level (beginner, intermediate, advanced, expert)
-- `in_demand` (boolean, optional): Show only high-demand skills
-
-**Response:** Returns skills database including:
-- Skill ID and name
-- Category and subcategory
-- Number of employees with this skill
-- Average proficiency level
-- Related certifications
-- Market demand indicator
-
-### `GET /v1/certifications`
-Get list of professional certifications held by employees.
-
-**Query Parameters:**
-- `type` (string, optional): Filter by type (technical, management, industry-specific)
-- `provider` (string, optional): Filter by certification provider (AWS, Microsoft, Google, PMI)
-- `active_only` (boolean, optional): Show only non-expired certifications (default: true)
-
-**Response:** Returns certification information including:
-- Certification name and provider
-- Number of certified employees
-- Average validity period
-- Renewal requirements
-- Associated salary premium percentage
-
-### `POST /v1/employees/:id/feedback`
-Submit performance feedback for an employee.
-
-**Path Parameters:**
-- `id` (string, required): Employee ID
-
-**Request Body:**
-- `rating` (integer, required): Rating from 1-5
-- `category` (string, required): Feedback category (technical, communication, leadership, teamwork)
-- `comment` (string, required): Detailed feedback text (min 50 characters)
-- `quarter` (string, required): Performance quarter (format: YYYY-Q#)
-- `anonymous` (boolean, optional): Submit anonymously (default: false)
-
-**Response:** Returns confirmation with feedback ID and processing status
-
-### `GET /v1/analytics/headcount`
-Get employee headcount analytics and trends.
-
-**Query Parameters:**
-- `period` (string, optional): Time period (monthly, quarterly, yearly) (default: monthly)
-- `start_date` (string, required): Start date (format: YYYY-MM-DD)
-- `end_date` (string, required): End date (format: YYYY-MM-DD)
-- `breakdown_by` (string, optional): Breakdown dimension (department, position, location)
-
-**Response:** Returns time-series headcount data including:
-- Period timestamps
-- Total headcount per period
-- New hires and departures
-- Growth rate percentage
-- Breakdown by specified dimension
-- Turnover rate calculations
-
-## Authentication
-
-All API requests require authentication using an API key in the Authorization header:
-```
-Authorization: Bearer YOUR_API_KEY
-```
-
-## Rate Limits
-
-- Standard tier: 1,000 requests per hour
-- Enterprise tier: 10,000 requests per hour
-- Custom rate limits available for enterprise customers
-
-## Technologies
-
-Built with Next.js 16, React 18, TypeScript, and Tailwind CSS for optimal performance and SEO.
