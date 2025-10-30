@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-wrap gap-6 text-sm">
-            <Link href="/docs" data-testid="link-footer-docs">
+            <Link href="/documentation" data-testid="link-footer-docs">
               <span className="text-muted-foreground hover:text-foreground transition-colors">Documentation</span>
             </Link>
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-status">

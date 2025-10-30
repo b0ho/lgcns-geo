@@ -1,15 +1,17 @@
-import { Link, useLocation } from "wouter";
+"use client";
+import Link from "next/link";
 import { Cloud, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { usePathname } from "next/navigation"; // Import usePathname
 
 export default function Header() {
-  const [location] = useLocation();
+  const pathname = usePathname(); // Use usePathname instead of useLocation
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/docs", label: "Documentation" },
+    { href: "/documentation", label: "Documentation" }, // Changed /docs to /documentation
   ];
 
   return (
@@ -22,13 +24,13 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
-            <Link 
-              key={item.href} 
+            <Link
+              key={item.href}
               href={item.href}
               data-testid={`link-nav-${item.label.toLowerCase()}`}
             >
               <span className={`text-sm font-medium transition-colors hover:text-primary ${
-                location === item.href ? "text-foreground" : "text-muted-foreground"
+                pathname === item.href ? "text-foreground" : "text-muted-foreground"
               }`}>
                 {item.label}
               </span>
@@ -51,14 +53,14 @@ export default function Header() {
         <div className="md:hidden border-t bg-background">
           <nav className="container mx-auto flex flex-col gap-4 p-4">
             {navItems.map((item) => (
-              <Link 
-                key={item.href} 
+              <Link
+                key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 data-testid={`link-mobile-${item.label.toLowerCase()}`}
               >
                 <span className={`text-sm font-medium ${
-                  location === item.href ? "text-foreground" : "text-muted-foreground"
+                  pathname === item.href ? "text-foreground" : "text-muted-foreground"
                 }`}>
                   {item.label}
                 </span>

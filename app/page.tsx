@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Zap, Globe, Shield, ArrowRight } from "lucide-react";
@@ -42,15 +43,17 @@ export default function Home() {
                 and organizational structure through our secure REST API.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/docs">
+                <Link href="/documentation">
                   <Button size="lg" data-testid="button-get-started">
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Button size="lg" variant="outline" data-testid="button-view-docs">
-                  View Documentation
-                </Button>
+                <Link href="/documentation">
+                  <Button size="lg" variant="outline" data-testid="button-view-docs">
+                    View Documentation
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -96,7 +99,7 @@ export default function Home() {
                 <CodeBlock code={responseCode} language="json" />
               </div>
               <div className="mt-4">
-                <Link href="/docs">
+                <Link href="/documentation">
                   <Button data-testid="button-explore-api">
                     Explore Full API Documentation
                     <ArrowRight className="ml-2 h-4 w-4" />
